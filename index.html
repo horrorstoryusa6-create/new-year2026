@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Happy New Year 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* Base */
+body{
+margin:0;
+background:radial-gradient(circle at top,#1a1f5c,#000);
+font-family:'Poppins',sans-serif;
+color:#fff;
+overflow:hidden;
+}
+
+/* Hide scrollbar but allow scroll */
+.container{
+scrollbar-width:none;
+}
+.container::-webkit-scrollbar{
+display:none;
+}
+
+/* Golden frame */
+.frame{
+position:fixed;
+top:8px; left:8px; right:8px; bottom:8px;
+border:3px solid gold;
+box-shadow:0 0 25px rgba(255,215,0,0.9);
+border-radius:18px;
+z-index:2;
+pointer-events:none;
+}
+
+/* Fireworks canvas */
+canvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:1;
+display:none;
+}
+
+/* Containers */
+.container{
+position:relative;
+z-index:3;
+max-width:420px;
+height:100vh;
+margin:auto;
+padding:18px;
+text-align:center;
+overflow-y:auto;
+}
+
+/* Step 1 card */
+.card{
+margin-top:35vh;
+background:rgba(0,0,0,0.45);
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 25px rgba(255,215,0,0.3);
+}
+
+/* Input */
+input{
+padding:12px;
+border-radius:25px;
+border:none;
+width:200px;
+text-align:center;
+font-size:16px;
+}
+button{
+margin-top:14px;
+padding:12px 30px;
+border-radius:25px;
+border:none;
+background:linear-gradient(45deg,gold,orange);
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* Heading */
+.heading{
+font-size:40px;
+font-weight:800;
+color:#ffd700;
+text-shadow:0 0 25px gold;
+margin-bottom:10px;
+}
+
+/* Name glow */
+.name{
+font-size:28px;
+font-weight:700;
+color:#00ffff;
+text-shadow:0 0 20px #00ffff;
+animation: glow 2s infinite alternate;
+}
+@keyframes glow{
+from{opacity:0.7;}
+to{opacity:1;}
+}
+
+/* Message */
+.message{
+white-space:pre-line;
+line-height:1.7;
+font-size:14.5px;
+margin-bottom:30px;
+}
+
+/* Flowers */
+.flower{
+position:fixed;
+font-size:24px;
+animation: fall linear infinite;
+z-index:2;
+opacity:0.9;
+}
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+/* Diya + flame */
+.diya{
+position:fixed;
+font-size:36px;
+z-index:3;
+}
+.flame{
+position:absolute;
+left:50%;
+top:-18px;
+width:10px;
+height:18px;
+background:orange;
+border-radius:50%;
+transform:translateX(-50%);
+animation:flicker 0.15s infinite alternate;
+box-shadow:0 0 15px orange;
+}
+@keyframes flicker{
+from{height:16px;}
+to{height:20px;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+<div class="frame"></div>
+
+<!-- Diya -->
+<div class="diya" style="top:20px;left:20px;">🪔<div class="flame"></div></div>
+<div class="diya" style="top:20px;right:20px;">🪔<div class="flame"></div></div>
+<div class="diya" style="bottom:20px;left:20px;">🪔<div class="flame"></div></div>
+<div class="diya" style="bottom:20px;right:20px;">🪔<div class="flame"></div></div>
+
+<!-- STEP 1 -->
+<div class="container" id="step1">
+<div class="card">
+<h3>✨ Enter Your Name ✨</h3>
+<input id="name" placeholder="Your Name">
+<br>
+<button onclick="start()">Open Wish 🎆</button>
+
+<br><br>
+<label>🌸 Flower Intensity</label><br>
+<select id="level">
+<option value="15">Low</option>
+<option value="30" selected>Medium</option>
+<option value="50">High</option>
+</select>
+</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="container" id="step2" style="display:none;">
+<div class="heading">🎉 Happy New Year 2026 🎉</div>
+<div class="name" id="showName"></div>
+<div class="message" id="wishText"></div>
+</div>
+
+<script>
+function start(){
+let name=document.getElementById("name").value || "Dear Friend";
+
+document.getElementById("step1").style.display="none";
+document.getElementById("step2").style.display="block";
+
+document.getElementById("showName").innerHTML="✨ "+name+" ✨";
+document.getElementById("fireworks").style.display="block";
+
+startFireworks();
+createFlowers(document.getElementById("level").value);
+
+document.getElementById("wishText").innerHTML=
+`🎉🥳 Advanced Happy New Year 2K26 to you and your family 🥳🎉
+
+😂 Chuha nikla bil se
+❤️🎊 Happy New Year dil se!✨ 🎊❤️
+
+🐟🤣 Machhli ko English me kehte hain Fish
+😜⚡ Tumhe mujhse pehle koi na kar de wish
+🤓⏰ Isliye ek din pehle hi
+🎉😉 kar rahe hain New Year wish..!!
+
+🌟 Roshni ko andhere se pehle
+❤️ Dilon ko dhadkan se pehle
+😊 Khushi ko gham se pehle
+🤲 Har dua ho qubool hone se pehle
+👨‍👩‍👧‍👦 Aapko aur aapke parivaar ko
+🎊 Happy New Year 2026 sabse pehle 🥳
+
+👨‍⚖️ Order! Order!
+📜 Yeh saal aapko aur aapki family ko
+😂🎊 poore saal khush rehne ki
+😄 SAJA sunata hai!✨
+
+✨👍 Once again, wishing you and your family a advance Happy New Year 2026 ✨`;
+}
+
+/* Fireworks */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+let particles=[];
+function startFireworks(){
+setInterval(()=>explode(Math.random()*canvas.width,Math.random()*canvas.height*0.6),500);
+animate();
+}
+function explode(x,y){
+for(let i=0;i<140;i++){
+particles.push({
+x,y,
+a:Math.random()*Math.PI*2,
+s:Math.random()*5+1,
+l:80,
+c:`hsl(${Math.random()*360},100%,60%)`
+});
+}
+}
+function animate(){
+ctx.fillStyle="rgba(0,0,0,0.3)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+particles.forEach((p,i)=>{
+p.x+=Math.cos(p.a)*p.s;
+p.y+=Math.sin(p.a)*p.s;
+p.l--;
+ctx.beginPath();
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fillStyle=p.c;
+ctx.shadowBlur=20;
+ctx.shadowColor=p.c;
+ctx.fill();
+if(p.l<=0) particles.splice(i,1);
+});
+requestAnimationFrame(animate);
+}
+
+/* Flowers */
+function createFlowers(count){
+for(let i=0;i<count;i++){
+let f=document.createElement("div");
+f.className="flower";
+f.innerHTML=["🌸","🌼","🌺","🌻","🌷"][Math.floor(Math.random()*5)];
+f.style.left=Math.random()*100+"%";
+f.style.animationDuration=(Math.random()*5+6)+"s";
+document.body.appendChild(f);
+}
+}
+</script>
+
+</body>
+</html>
